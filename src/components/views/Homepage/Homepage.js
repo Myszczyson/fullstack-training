@@ -7,16 +7,22 @@ import clsx from 'clsx';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
 import styles from './Homepage.module.scss';
+import { SearchBar } from '../../features/SearchBar/SearchBar/SearchBar';
+import { Button } from '../../common/Button/Button/Button';
 
-const Component = ({className, children}) => (
+const Component = ({className}) => (
   <div className={clsx(className, styles.root)}>
-    <h2>Homepage</h2>
-    {children}
+    <section className={styles.bar}>
+      <SearchBar />
+      <Button className={styles.postAdd} name={'Add new post here!'}/>
+    </section>
+    <section className={styles.posts}>
+      <div>post</div>
+    </section>
   </div>
 );
 
 Component.propTypes = {
-  children: PropTypes.node,
   className: PropTypes.string,
 };
 

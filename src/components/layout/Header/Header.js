@@ -14,10 +14,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Component = ({className}) => (
   <div className={clsx(className, styles.root)}>
     <div className={styles.container}>
-      <section>
-        <h1 className={styles.logo}>Flamingo</h1>
+      <section className={styles.logo}>
+        <a href='/'><h1>Bulletin Board</h1></a>
       </section>
-      <section>
+      <section className={styles.user}>
         <a href='/login/auth'><FontAwesomeIcon icon={faUser}/></a>
         <a href={'isLogged' ? '/:user/posts' : '/login/auth'}><FontAwesomeIcon icon={faScroll}/></a>
         <a href='/login/auth/logout'><FontAwesomeIcon icon={faSignOutAlt}/></a>

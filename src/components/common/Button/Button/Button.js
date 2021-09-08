@@ -3,24 +3,19 @@ import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
 
-import { Header } from '../Header/Header';
-
 // import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
-import styles from './MainLayout.module.scss';
+import styles from './Button.module.scss';
 
-const Component = ({ className, children }) => (
+const Component = ({className, name}) => (
   <div className={clsx(className, styles.root)}>
-    <Header />
-    <div className={styles.container}>
-      {children}
-    </div>
+    <button className={styles.btn}>{name}</button>
   </div>
 );
 
 Component.propTypes = {
-  children: PropTypes.node,
+  name: PropTypes.string,
   className: PropTypes.string,
 };
 
@@ -35,7 +30,7 @@ Component.propTypes = {
 // const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
-  Component as MainLayout,
-  // Container as MainLayout,
-  Component as MainLayoutComponent,
+  Component as Button,
+  // Container as Button,
+  Component as ButtonComponent,
 };
