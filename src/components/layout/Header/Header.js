@@ -2,21 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
+import { faUser, faScroll, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 // import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
 import styles from './Header.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Component = ({className, children}) => (
+
+const Component = ({className}) => (
   <div className={clsx(className, styles.root)}>
-    <h2>Header</h2>
-    {children}
+    <div className={styles.container}>
+      <section>
+        <h1 className={styles.logo}>Flamingo</h1>
+      </section>
+      <section>
+        <a href='/login/auth'><FontAwesomeIcon icon={faUser}/></a>
+        <a href={'isLogged' ? '/:user/posts' : '/login/auth'}><FontAwesomeIcon icon={faScroll}/></a>
+        <a href='/login/auth/logout'><FontAwesomeIcon icon={faSignOutAlt}/></a>
+      </section>
+    </div>
   </div>
 );
 
 Component.propTypes = {
-  children: PropTypes.node,
   className: PropTypes.string,
 };
 

@@ -1,1 +1,33 @@
 $base-size: 12px;
+
+// Colors
+$fontColorPrimary: rgb(255, 255, 255);
+$background: rgb(245, 231, 222);
+$primary: rgba(243, 181, 234, 0.808);
+$secondary: rgba(196, 189, 181, 0.603);
+
+
+
+body, ::after, ::before {
+  color: $fontColorPrimary;
+  background-color: $background;
+  font-size: $base-size;
+  box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
