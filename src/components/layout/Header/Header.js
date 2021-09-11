@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
 import { faUser, faScroll, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
 import styles from './Header.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 
 const Component = ({className}) => (

@@ -30,8 +30,8 @@ const App = () => (
             <Switch>
               <Route exact path='/' component={Homepage} />
               <Route exact path='/post/add' component={PostAdd} />
-              <Route exact path='/post/:id' component={Post} />
-              <Route exact path='/post/:id/edit' component={PostEdit} />
+              <Route exact path='/post/1' component={Post} />
+              <Route exact path='/post/1/edit' component={PostEdit} />
               <Route path='*' component={NotFound} />
             </Switch>
           </MainLayout>

@@ -3,41 +3,46 @@ import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
 
-// import { connect } from 'react-redux';
-// import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
+import { connect } from 'react-redux';
+import { getAll, getAllPublished, fetchPublished } from '../../../redux/postsRedux.js';
 
 import styles from './Homepage.module.scss';
 import { SearchBar } from '../../features/SearchBar/SearchBar/SearchBar';
 import { Button } from '../../common/Button/Button/Button';
+import { PostBox } from '../../features/PostBox/PostBox';
 
-const Component = ({className}) => (
-  <div className={clsx(className, styles.root)}>
-    <section className={styles.bar}>
-      <SearchBar />
-      <Button className={styles.postAdd} name={'Add new post here!'}/>
-    </section>
-    <section className={styles.posts}>
-      <div>post</div>
-    </section>
-  </div>
-);
-
-Component.propTypes = {
-  className: PropTypes.string,
+const Component = ({className, posts}) => {
+  console.log(posts);
+  return (
+    <div className={clsx(className, styles.root)}>
+      <section className={styles.bar}>
+        <SearchBar />
+        <Button className={styles.postAdd} name={'Add new post here!'}/>
+      </section>
+      <section className={styles.posts}>
+        {posts.map(post => <PostBox key={post.id} {...post} />)}
+      </section>
+    </div>
+  );
 };
 
-// const mapStateToProps = state => ({
-//   someProp: reduxSelector(state),
-// });
+const mapStateToProps = () => ({
+  posts: getAllPublished,
+});
 
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
-// });
+const mapDispatchToProps = dispatch => ({
+  fetchPublishedPosts: () => dispatch(fetchPublished()),
+});
 
-// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+
+Component.propTypes = {
+  posts: PropTypes.array,
+  className: PropTypes.string,
+  fetchPublished: PropTypes.func,
+};
 
 export {
-  Component as Homepage,
-  // Container as Homepage,
+  Container as Homepage,
   Component as HomepageComponent,
 };
