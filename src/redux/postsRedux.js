@@ -2,7 +2,7 @@ import Axios from 'axios';
 
 /* selectors */
 export const getAll = ({ posts }) => posts.data;
-export const getAllPublished = ({ posts }) => posts.data.filter(item => item.status == 'published');
+export const getAllPublished = ({ posts }) => posts.data.filter(item => item.status !== 'published');
 
 /* action name creator */
 const reducerName = 'posts';
@@ -22,6 +22,11 @@ export const fetchError = payload => ({ payload, type: FETCH_ERROR });
 /* thunk creators */
 export const fetchPublished = () => {
   return (dispatch, getState) => {
+    const state = getState();
+    if(state.posts.data.length > 0 || state.posts.loading.active) {
+      return;
+    }
+
     dispatch(fetchStarted());
 
     Axios

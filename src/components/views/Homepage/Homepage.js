@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getAll, getAllPublished, fetchPublished } from '../../../redux/postsRedux.js';
+import { getAllPublished, fetchPublished } from '../../../redux/postsRedux.js';
 
 import styles from './Homepage.module.scss';
 import { SearchBar } from '../../features/SearchBar/SearchBar/SearchBar';
 import { Button } from '../../common/Button/Button/Button';
 import { PostBox } from '../../features/PostBox/PostBox';
 
-const Component = ({className, posts}) => {
-  console.log(posts);
+const Component = ({className, posts, fetchPublishedPosts}) => {
+
+  useEffect(() =>
+    fetchPublishedPosts()
+  );
+
   return (
     <div className={clsx(className, styles.root)}>
       <section className={styles.bar}>
@@ -26,8 +30,8 @@ const Component = ({className, posts}) => {
   );
 };
 
-const mapStateToProps = () => ({
-  posts: getAllPublished,
+const mapStateToProps = state => ({
+  posts: getAllPublished(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -39,7 +43,7 @@ const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 Component.propTypes = {
   posts: PropTypes.array,
   className: PropTypes.string,
-  fetchPublished: PropTypes.func,
+  fetchPublishedPosts: PropTypes.func,
 };
 
 export {
