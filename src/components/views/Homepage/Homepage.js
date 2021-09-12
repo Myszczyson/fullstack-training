@@ -13,15 +13,17 @@ import { PostBox } from '../../features/PostBox/PostBox';
 
 const Component = ({className, posts, fetchPublishedPosts}) => {
 
-  useEffect(() =>
-    fetchPublishedPosts()
-  );
+  useEffect(() =>{
+    fetchPublishedPosts();
+  }, [fetchPublishedPosts]);
+
+  if(!posts) return null;
 
   return (
     <div className={clsx(className, styles.root)}>
       <section className={styles.bar}>
         <SearchBar />
-        <Button className={styles.postAdd} name={'Add new post here!'}/>
+        <Button className={styles.postAdd} name={'New post'}/>
       </section>
       <section className={styles.posts}>
         {posts.map(post => <PostBox key={post.id} {...post} />)}

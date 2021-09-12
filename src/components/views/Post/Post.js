@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
@@ -6,27 +6,41 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import styles from './Post.module.scss';
+import { useParams } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { getById, fetchById } from '../../../redux/postsRedux.js';
 
-const Component = ({className, post}) => {
+
+const Component = ({className}) => {
+
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const post = useSelector(state => getById(state, id));
+
+  useEffect(() => {
+    dispatch(fetchById(id));
+  }, [dispatch, id]);
+
+  if(!post) return null;
 
   return (
     <div className={clsx(className, styles.root)}>
       <div className={styles.imgContainer}>
-        <img src='https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress%27cs=tinysrgb%27dpr=1%27w=500' alt='alt'></img>
+        <img src={post.photo ? post.photo : 'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'} alt='IMG'></img>
       </div>
       <div className={styles.post}>
         <h3>{post.title}</h3>
-        <p>Description Description Description Description Description Description DescriptionDescription Description Description Description Description Description Description </p>
+        <p>{post.text}</p>
         <div className={styles.info}>
-          <p>Published: 18.03.2021</p>
-          <p>Price: 123456$</p>
+          <p>Published: {post.created}</p>
+          <p>Price: {post.price ? post.price : 'Not disclosed'}</p>
         </div>
         <div className={styles.author}>
-          <p>Author: author@mail.com</p>
-          <p>Phone: + 48 111 222 333</p>
-          <p>Location: Poland, Warsaw</p>
+          <p>Author: {post.author}</p>
+          <p>Phone: {post.phone ? post.phone : 'Not dislosed'}</p>
+          <p>Location: {post.location ? post.location : 'Not dislosed'}</p>
         </div>
-        <h5 className={styles.status}>Status</h5>
+        <h5 className={styles.status}>{post.status}</h5>
       </div>
       <a href={`/post/:id/edit`}><FontAwesomeIcon icon={faEdit}></FontAwesomeIcon></a>
     </div>
@@ -34,7 +48,6 @@ const Component = ({className, post}) => {
 };
 
 Component.propTypes = {
-  post: PropTypes.object,
   className: PropTypes.string,
 };
 

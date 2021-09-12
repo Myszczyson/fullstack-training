@@ -4,12 +4,15 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import styles from './PostBox.module.scss';
 
-const Component = ({className, _id, title, created, price}) => (
+const Component = ({className, _id, title, text, created, price, photo}) => (
   <div className={clsx(className, styles.root)}>
     <a href={`/post/${_id}`}><h3>{title}</h3></a>
-    <div className={styles.imgContainer}>
-      <img src='https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress%27cs=tinysrgb%27dpr=1%27w=500' alt='alt'></img>
-    </div>
+    {photo ?
+      <div className={styles.imgContainer}>
+        <img src={photo} alt='IMG'></img>
+      </div>
+      : null
+    }
     <div className={styles.info}>
       <p>Published Date: {created}</p>
       <p>Price: {price ? price : 'Not declared'}</p>
@@ -21,8 +24,10 @@ Component.propTypes = {
   className: PropTypes.string,
   _id: PropTypes.string,
   title: PropTypes.string,
+  text: PropTypes.string,
   created: PropTypes.string,
   price: PropTypes.string,
+  photo: PropTypes.string,
 };
 
 export {
