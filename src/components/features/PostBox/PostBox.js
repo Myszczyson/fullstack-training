@@ -15,7 +15,6 @@ const Component = ({className, _id, title, created, price, photo}) => (
     }
     <div className={styles.info}>
       <p>Published Date: {created}</p>
-      <p>Price: {price ? price : 'Not declared'}</p>
     </div>
   </div>
 );

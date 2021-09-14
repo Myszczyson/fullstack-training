@@ -26,23 +26,15 @@
     justify-content: center;
     height: 100%;
     width: 50%;
-    margin: 0 5% 0 5%;
+    padding: 0 5% 0 5%;
 
 
-    .info {
+    .info, .author {
+      display: flex;
+      flex-direction: column;
       border-top: 1px solid $secondary;
+      margin: 5% 0 5% 0;
     }
-
-    .author {
-      border-top: 1px solid $secondary;
-    }
-  }
-
-
-  .edit {
-    font-size: 20px;
-    text-decoration: none;
-    color: inherit;
   }
 
   .status {

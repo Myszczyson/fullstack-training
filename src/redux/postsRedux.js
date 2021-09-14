@@ -74,32 +74,32 @@ export const fetchById = (id) => {
   };
 };
 
-export const create = () => {
+export const create = (form) => {
   return (dispatch, getState) => {
-    dispatch(fetchByIdStarted());
+    dispatch(createStarted());
 
     Axios
-      .post(`http://localhost:8000/api/posts`)
+      .post('http://localhost:8000/api/posts', form)
       .then(res => {
-        dispatch(fetchByIdSuccess(res.data));
+        dispatch(createSuccess(res.data));
       })
       .catch(err => {
-        dispatch(fetchByIdError(err.message || true));
+        dispatch(createError(err.message || true));
       });
   };
 };
 
-export const edit = (id) => {
+export const edit = (form) => {
   return (dispatch, getState) => {
-    dispatch(fetchByIdStarted());
+    dispatch(editStarted());
 
     Axios
-      .put(`http://localhost:8000/api/posts/${id}`)
+      .put(`http://localhost:8000/api/posts/${form._id}/edit`, form)
       .then(res => {
-        dispatch(fetchByIdSuccess(res.data));
+        dispatch(editSuccess(res.data));
       })
       .catch(err => {
-        dispatch(fetchByIdError(err.message || true));
+        dispatch(editError(err.message || true));
       });
   };
 };
@@ -182,20 +182,13 @@ export const reducer = (statePart = [], action = {}) => {
       };
     }
     case CREATE_SUCCESS: {
-      const refreshedPost = action.payload;
-      const doesExist = statePart.data.some(item => item._id === refreshedPost._id);
-
-      const data = doesExist ? statePart.data.map(item => {
-        return (item._id === refreshedPost._id) ? refreshedPost : item;
-      }) : [...statePart.data, refreshedPost];
-
       return {
         ...statePart,
         loading: {
           active: false,
           error: false,
         },
-        data,
+        data: [...statePart.data, action.payload],
       };
     }
     case CREATE_ERROR: {
