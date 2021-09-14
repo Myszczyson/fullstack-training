@@ -17,6 +17,29 @@ router.get('/posts', async (req, res) => {
   }
 });
 
+// router.post('/posts', async (req, res) => {
+//   try {
+//     const { author, created, updated, status, title ,text } = req.body;
+//     const newPost = new Post({
+//       author: author,
+//       created: created,
+//       updated: updated,
+//       status: status,
+//       title: title,
+//       text: text,
+//     });
+
+//     await newPost.save();
+
+//     if(!newPost) res.status(404).json({ post: 'Not found' });
+//     else res.json(newPost);
+//   }
+//   catch(err) {
+//     res.status(500).json(err);
+//   }
+// });
+
+
 router.get('/posts/:id', async (req, res) => {
   try {
     const result = await Post

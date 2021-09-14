@@ -33,16 +33,16 @@ const Component = ({className}) => {
         <p>{post.text}</p>
         <div className={styles.info}>
           <p>Published: {post.created}</p>
-          <p>Price: {post.price ? post.price : 'Not disclosed'}</p>
+          <p>Price: {post.price ? post.price : 'Not declared'}</p>
         </div>
         <div className={styles.author}>
           <p>Author: {post.author}</p>
-          <p>Phone: {post.phone ? post.phone : 'Not dislosed'}</p>
-          <p>Location: {post.location ? post.location : 'Not dislosed'}</p>
+          <p>Phone: {post.phone ? post.phone : 'Not declared'}</p>
+          <p>Location: {post.location ? post.location : 'Not declared'}</p>
         </div>
         <h5 className={styles.status}>{post.status}</h5>
       </div>
-      <a href={`/post/:id/edit`}><FontAwesomeIcon icon={faEdit}></FontAwesomeIcon></a>
+      <a className={styles.edit} href={`/post/${post._id}/edit`}><FontAwesomeIcon icon={faEdit}></FontAwesomeIcon></a>
     </div>
   );
 };

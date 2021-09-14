@@ -23,7 +23,7 @@ const Component = ({className, posts, fetchPublishedPosts}) => {
     <div className={clsx(className, styles.root)}>
       <section className={styles.bar}>
         <SearchBar />
-        <Button className={styles.postAdd} name={'New post'}/>
+        <Button href='/post/add' className={styles.postAdd} name={'New post'}/>
       </section>
       <section className={styles.posts}>
         {posts.map(post => <PostBox key={post.id} {...post} />)}

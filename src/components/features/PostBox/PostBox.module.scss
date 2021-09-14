@@ -3,6 +3,10 @@
 .root {
   height: 100%;
   width: 100%;
+  max-width: 350px;
+  outline: 1px solid $secondary;
+  outline-offset: 5px;
+  border: 1px solid $primary;
   background-color: $background_3;
 
   a {

@@ -21,9 +21,13 @@
   }
 
   .post {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     height: 100%;
     width: 50%;
     margin: 0 5% 0 5%;
+
 
     .info {
       border-top: 1px solid $secondary;
@@ -34,7 +38,15 @@
     }
   }
 
+
+  .edit {
+    font-size: 20px;
+    text-decoration: none;
+    color: inherit;
+  }
+
   .status {
+    color: $secondary;
     text-align: center;
   }
 }
