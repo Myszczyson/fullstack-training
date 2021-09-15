@@ -5,7 +5,9 @@ export const initialState = {
       active: false,
       error: false,
     },
-    user: false,
+  },
+  user: {
+    active: false,
     admin: false,
   },
 };

@@ -16,7 +16,7 @@ const Component = ({className}) => (
         <a href='/'><h1>Bulletin Board</h1></a>
       </section>
       <section className={styles.user}>
-        <a href='/login/auth' className={clsx('users.params' && styles.hidden)}><FontAwesomeIcon icon={faUser}/></a>
+        <a href='/login/auth' className={clsx('users.params' && styles.visible)}><FontAwesomeIcon icon={faUser}/></a>
         <a href={'isLogged' ? '/:user/posts' : '/login/auth'} className={styles.userPosts}><FontAwesomeIcon icon={faScroll}/></a>
         <a href='/login/auth/logout' className={styles.logout}><FontAwesomeIcon icon={faSignOutAlt}/></a>
       </section>
