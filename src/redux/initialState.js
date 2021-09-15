@@ -9,5 +9,6 @@ export const initialState = {
   user: {
     active: false,
     admin: false,
+    error: false,
   },
 };

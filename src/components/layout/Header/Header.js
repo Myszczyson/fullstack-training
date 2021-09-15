@@ -6,23 +6,33 @@ import { faUser, faScroll, faSignOutAlt } from '@fortawesome/free-solid-svg-icon
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import styles from './Header.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { getInfo, getUser } from '../../../redux/userRedux';
 
 
 
-const Component = ({className}) => (
-  <div className={clsx(className, styles.root)}>
-    <div className={styles.container}>
-      <section className={styles.logo}>
-        <a href='/'><h1>Bulletin Board</h1></a>
-      </section>
-      <section className={styles.user}>
-        <a href='/login/auth' className={clsx('users.params' && styles.visible)}><FontAwesomeIcon icon={faUser}/></a>
-        <a href={'isLogged' ? '/:user/posts' : '/login/auth'} className={styles.userPosts}><FontAwesomeIcon icon={faScroll}/></a>
-        <a href='/login/auth/logout' className={styles.logout}><FontAwesomeIcon icon={faSignOutAlt}/></a>
-      </section>
+
+const Component = ({className}) => {
+
+  const dispatch = useDispatch();
+  const user = useSelector(state => getInfo(state));
+
+
+  return (
+    <div className={clsx(className, styles.root)}>
+      <div className={styles.container}>
+        <section className={styles.logo}>
+          <a href='/'><h1>Bulletin Board</h1></a>
+        </section>
+        <section className={styles.user}>
+          <a href='http://localhost:8000/auth/google' className={clsx(user.active && styles.visible)}><FontAwesomeIcon icon={faUser}/></a>
+          <a href={user.active ? '/:user/posts' : 'http://localhost:8000/auth/google'} className={clsx(!user.active && styles.hidden)}><FontAwesomeIcon icon={faScroll}/></a>
+          <a href='http://localhost:8000/auth/logout' className={clsx(!user.active && styles.hidden)}><FontAwesomeIcon icon={faSignOutAlt}/></a>
+        </section>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 Component.propTypes = {
   className: PropTypes.string,
