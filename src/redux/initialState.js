@@ -9,6 +9,7 @@ export const initialState = {
   user: {
     active: false,
     admin: false,
+    mail: '',
     error: false,
   },
 };

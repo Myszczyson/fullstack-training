@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
@@ -17,6 +17,10 @@ const Component = ({className}) => {
   const dispatch = useDispatch();
   const user = useSelector(state => getInfo(state));
 
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
+
 
   return (
     <div className={clsx(className, styles.root)}>
@@ -25,9 +29,10 @@ const Component = ({className}) => {
           <a href='/'><h1>Bulletin Board</h1></a>
         </section>
         <section className={styles.user}>
-          <a href='http://localhost:8000/auth/google' className={clsx(user.active && styles.visible)}><FontAwesomeIcon icon={faUser}/></a>
-          <a href={user.active ? '/:user/posts' : 'http://localhost:8000/auth/google'} className={clsx(!user.active && styles.hidden)}><FontAwesomeIcon icon={faScroll}/></a>
-          <a href='http://localhost:8000/auth/logout' className={clsx(!user.active && styles.hidden)}><FontAwesomeIcon icon={faSignOutAlt}/></a>
+          {!user.active ? <a href='http://localhost:8000/auth/google'><FontAwesomeIcon icon={faUser}/></a> : null}
+          {user.active ? <p className={styles.logged}>Logged as {user.mail}</p> : null}
+          {user.active ? <a href={`/${user.mail}/posts`}><FontAwesomeIcon icon={faScroll}/></a> : null}
+          {user.active ? <a href='http://localhost:8000/auth/logout'><FontAwesomeIcon icon={faSignOutAlt}/></a> : null}
         </section>
       </div>
     </div>

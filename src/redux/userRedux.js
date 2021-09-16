@@ -25,9 +25,10 @@ export const getUser = () => {
     dispatch(loginStarted());
 
     Axios
-      .get('http://localhost:8000/auth/google')
+      .get('http://localhost:8000/auth/user', { withCredentials: true})
       .then(res => {
-        dispatch(loginSuccess());
+        dispatch(loginSuccess(res.data.user.emails[0].value));
+        if(res.data.admin) return dispatch(adminSuccess());
       })
       .catch(err => {
         dispatch(loginError(err.message || true));
@@ -51,6 +52,7 @@ export const reducer = (statePart = [], action = {}) => {
         ...statePart,
         active: true,
         admin: false,
+        mail: action.payload,
         error: false,
       };
     }

@@ -17,6 +17,20 @@ router.get('/posts', async (req, res) => {
   }
 });
 
+router.get('/:user/posts', async (req, res) => {
+  try {
+    const result = await Post
+      .find({ author: req.params.user })
+      .select('author created title photo')
+      .sort({created: -1});
+    if(!result) res.status(404).json({ post: 'Not found' });
+    else res.json(result);
+  }
+  catch(err) {
+    res.status(500).json(err);
+  }
+});
+
 router.post('/posts', async (req, res) => {
   try {
     const { author, created, updated, status, title , text, photo, price, phone, location } = req.body;

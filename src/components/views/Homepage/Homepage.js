@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
 
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAllPublished, fetchPublished } from '../../../redux/postsRedux.js';
 
 import styles from './Homepage.module.scss';
@@ -11,11 +11,14 @@ import { SearchBar } from '../../features/SearchBar/SearchBar/SearchBar';
 import { Button } from '../../common/Button/Button/Button';
 import { PostBox } from '../../features/PostBox/PostBox';
 
-const Component = ({className, posts, fetchPublishedPosts}) => {
+const Component = ({className}) => {
+
+  const dispatch = useDispatch();
+  const posts = useSelector(state => getAllPublished(state));
 
   useEffect(() =>{
-    fetchPublishedPosts();
-  }, [fetchPublishedPosts]);
+    dispatch(fetchPublished());
+  }, [dispatch]);
 
   if(!posts) return null;
 
@@ -32,23 +35,11 @@ const Component = ({className, posts, fetchPublishedPosts}) => {
   );
 };
 
-const mapStateToProps = state => ({
-  posts: getAllPublished(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchPublishedPosts: () => dispatch(fetchPublished()),
-});
-
-const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
-
 Component.propTypes = {
-  posts: PropTypes.array,
   className: PropTypes.string,
-  fetchPublishedPosts: PropTypes.func,
 };
 
 export {
-  Container as Homepage,
+  Component as Homepage,
   Component as HomepageComponent,
 };

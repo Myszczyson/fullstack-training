@@ -1,0 +1,14 @@
+@import '../../../styles/settings.scss';
+
+.root {
+
+  .posts {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    border-top: 1px solid $secondary;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 10% 5%;
+    justify-items: center;
+  }
+}

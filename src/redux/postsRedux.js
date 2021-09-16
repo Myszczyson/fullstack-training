@@ -4,7 +4,7 @@ import Axios from 'axios';
 export const getAll = ({ posts }) => posts.data;
 export const getAllPublished = ({ posts }) => posts.data.filter(item => item.status !== 'published');
 export const getById = ({ posts }, id) => posts.data.find(item => item._id === id);
-
+export const getUserPosts = ({ posts }, user) => posts.data.filter(item => item.status !== user);
 /* action name creator */
 const reducerName = 'posts';
 const createActionName = name => `app/${reducerName}/${name}`;
@@ -13,6 +13,10 @@ const createActionName = name => `app/${reducerName}/${name}`;
 const FETCH_START = createActionName('FETCH_START');
 const FETCH_SUCCESS = createActionName('FETCH_SUCCESS');
 const FETCH_ERROR = createActionName('FETCH_ERROR');
+
+const FETCH_USER_START = createActionName('FETCH_USER_START');
+const FETCH_USER_SUCCESS = createActionName('FETCH_USER_SUCCESS');
+const FETCH_USER_ERROR = createActionName('FETCH_USER_ERROR');
 
 const FETCH_ID_START = createActionName('FETCH_ID_START');
 const FETCH_ID_SUCCESS = createActionName('FETCH_ID_SUCCESS');
@@ -30,6 +34,10 @@ const EDIT_ERROR = createActionName('EDIT_ERROR');
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
+
+export const fetchUserStarted = payload => ({ payload, type: FETCH_USER_START });
+export const fetchUserSuccess = payload => ({ payload, type: FETCH_USER_SUCCESS });
+export const fetchUserError = payload => ({ payload, type: FETCH_USER_ERROR });
 
 export const fetchByIdStarted = payload => ({ payload, type: FETCH_ID_START });
 export const fetchByIdSuccess = payload => ({ payload, type: FETCH_ID_SUCCESS });
@@ -58,6 +66,22 @@ export const fetchPublished = () => {
       });
   };
 };
+
+export const fetchUserPosts = (user) => {
+  return (dispatch, getState) => {
+    dispatch(fetchUserStarted());
+
+    Axios
+      .get(`http://localhost:8000/api/${user}/posts`)
+      .then(res => {
+        dispatch(fetchUserSuccess(res.data));
+      })
+      .catch(err => {
+        dispatch(fetchUserError(err.message || true));
+      });
+  };
+};
+
 
 export const fetchById = (id) => {
   return (dispatch, getState) => {
@@ -127,6 +151,37 @@ export const reducer = (statePart = [], action = {}) => {
       };
     }
     case FETCH_ERROR: {
+      return {
+        ...statePart,
+        loading: {
+          active: false,
+          error: action.payload,
+        },
+      };
+    }
+
+    case FETCH_USER_START: {
+      return {
+        ...statePart,
+        loading: {
+          active: true,
+          error: false,
+        },
+      };
+    }
+    case FETCH_USER_SUCCESS: {
+
+
+      return {
+        ...statePart,
+        loading: {
+          active: false,
+          error: false,
+        },
+        data: action.payload,
+      };
+    }
+    case FETCH_USER_ERROR: {
       return {
         ...statePart,
         loading: {
