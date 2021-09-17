@@ -31,26 +31,34 @@ router.get('/:user/posts', async (req, res) => {
   }
 });
 
-router.post('/posts', async (req, res) => {
+router.post('/posts/add', async (req, res) => {
   try {
+
     const { author, created, updated, status, title , text, photo, price, phone, location } = req.body;
 
-    const newPost = new Post({
-      author: author,
-      created: created,
-      updated: updated,
-      status: status,
-      title: title,
-      text: text,
-      photo: photo ? photo : null,
-      price: price ? price : null,
-      phone: phone ? phone : null,
-      location: location ? location : null,
-    });
+    if(title.length < 10 || text.length < 20) {
+      throw new Error('Not enough characters in title or description');
+    } else {
 
-    await newPost.save();
+      const newPost = new Post({
+        author: author,
+        created: created,
+        updated: updated,
+        status: status,
+        title: title,
+        text: text,
+        photo: photo ? photo : null,
+        price: price ? price : null,
+        phone: phone ? phone : null,
+        location: location ? location : null,
+      });
 
-    res.json(newPost);
+      await newPost.save();
+
+      res.json(newPost);
+      res.redirect('http://localhost:3000/');
+
+    }
   }
   catch(err) {
     res.status(500).json(err);
@@ -73,27 +81,33 @@ router.get('/posts/:id', async (req, res) => {
 router.put('/posts/:id/edit', async (req, res) => {
   try {
     const result = await Post.findById(req.params.id);
+    const { author, created, status, title , text, photo, price, phone, location } = req.body;
+
     if(!result) {
       res.status(404).json({ post: 'Not found' });
-    } else {
-      const { author, created, status, title , text, photo, price, phone, location } = req.body;
-      const editDate = new Date();
+    }  else {
+      if(title.length < 10 || text.length < 20) {
+        throw new Error('Not enough characters in title or description');
+      } else {
 
+        const editDate = new Date();
 
-      result.author = author;
-      result.created = created;
-      result.updated = new Date(editDate.getFullYear(), editDate.getMonth(), editDate.getDate() ,editDate.getHours(), editDate.getMinutes(), editDate.getSeconds(), editDate.getMilliseconds());
-      result.status = status;
-      result.title = title;
-      result.text = text;
-      result.photo = photo;
-      result.price = price;
-      result.phone = phone;
-      result.location = location;
+        result.author = author;
+        result.created = created;
+        result.updated = new Date(editDate.getFullYear(), editDate.getMonth(), editDate.getDate() ,editDate.getHours(), editDate.getMinutes(), editDate.getSeconds(), editDate.getMilliseconds());
+        result.status = status;
+        result.title = title;
+        result.text = text;
+        result.photo = photo;
+        result.price = price;
+        result.phone = phone;
+        result.location = location;
 
-      await result.save();
+        await result.save();
 
-      res.json(result);
+        res.json(result);
+        res.redirect('http://localhost:3000/');
+      }
     }
   }
   catch(err) {

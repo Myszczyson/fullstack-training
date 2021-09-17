@@ -103,12 +103,14 @@ export const create = (form) => {
     dispatch(createStarted());
 
     Axios
-      .post('http://localhost:8000/api/posts', form)
+      .post('http://localhost:8000/api/posts/add', form)
       .then(res => {
         dispatch(createSuccess(res.data));
+        alert('Post added');
       })
       .catch(err => {
         dispatch(createError(err.message || true));
+        alert('Hey smth went wrong try again bro');
       });
   };
 };
@@ -121,9 +123,11 @@ export const edit = (form) => {
       .put(`http://localhost:8000/api/posts/${form._id}/edit`, form)
       .then(res => {
         dispatch(editSuccess(res.data));
+        alert('Post edited');
       })
       .catch(err => {
         dispatch(editError(err.message || true));
+        alert('Hey smth went wrong try again bro');
       });
   };
 };

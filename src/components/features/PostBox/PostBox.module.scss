@@ -3,6 +3,7 @@
 .root {
   height: 100%;
   width: 100%;
+  margin: 15px 5px 15px 5px;
   max-width: 350px;
   outline: 1px solid $secondary;
   outline-offset: 5px;
@@ -12,6 +13,10 @@
   a {
     text-decoration: none;
     color: inherit;
+  }
+
+  h3 {
+    font-size: 18px;
   }
 
   h3, p {

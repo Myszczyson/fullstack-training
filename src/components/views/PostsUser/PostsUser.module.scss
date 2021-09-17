@@ -1,14 +1,17 @@
 @import '../../../styles/settings.scss';
 
 .root {
-
+  padding: 20px 10% 1% 10%;
+  p {
+    font-size: 14px;
+    color: $primary;
+  }
   .posts {
     padding-top: 5%;
     padding-bottom: 5%;
     border-top: 1px solid $secondary;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 10% 5%;
-    justify-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly
   }
 }

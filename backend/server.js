@@ -4,8 +4,11 @@ const cors = require('cors');
 const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
+// eslint-disable-next-line no-unused-vars
 const passportConfig = require('./config/passport');
 const session = require('express-session');
+const helmet = require('helmet');
+const sanitize = require('express-mongo-sanitize');
 
 const postsRoutes = require('./routes/posts.routes');
 
@@ -19,8 +22,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /* MIDDLEWARE */
+app.use(helmet());
+app.use(sanitize());
 app.use(cors({
   origin: 'http://localhost:3000',
+  resave: false,
+  saveUninitialized: true,
   credentials: true,
 }));
 app.use(express.json());

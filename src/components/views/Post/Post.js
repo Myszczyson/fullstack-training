@@ -9,12 +9,16 @@ import styles from './Post.module.scss';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getById, fetchById } from '../../../redux/postsRedux.js';
+import { getInfo } from '../../../redux/userRedux';
+import { datePrettier } from '../../../utils/datePrettier';
+
 
 
 const Component = ({className}) => {
 
   const dispatch = useDispatch();
   const { id } = useParams();
+  const user = useSelector(state => getInfo(state));
   const post = useSelector(state => getById(state, id));
 
   useEffect(() => {
@@ -30,9 +34,8 @@ const Component = ({className}) => {
       </div>
       <div className={styles.post}>
         <h3>{post.title}</h3>
-        <p>{post.text}</p>
+        <p className={styles.description}>{post.text}</p>
         <div className={styles.info}>
-          <p>Published: {post.created}</p>
           <p>Price: {post.price ? post.price : 'Not declared'}</p>
         </div>
         <div className={styles.author}>
@@ -41,8 +44,12 @@ const Component = ({className}) => {
           <p>Location: {post.location ? post.location : 'Not declared'}</p>
         </div>
         <h5 className={styles.status}>{post.status}</h5>
+        <div className={styles.dates}>
+          <p>Published: {datePrettier(post.created)}</p>
+          <p>Last edited: {datePrettier(post.created)}</p>
+        </div>
       </div>
-      <a className={styles.edit} href={`/post/${post._id}/edit`}><FontAwesomeIcon icon={faEdit}></FontAwesomeIcon></a>
+      {user.mail === post.author || user.admin ? <a className={styles.edit} href={`/post/${post._id}/edit`}><FontAwesomeIcon icon={faEdit}></FontAwesomeIcon></a> : null}
     </div>
   );
 };

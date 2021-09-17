@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
 import styles from './PostBox.module.scss';
+import { datePrettier } from '../../../utils/datePrettier';
 
 const Component = ({className, _id, title, created, price, photo}) => (
   <div className={clsx(className, styles.root)}>
@@ -14,7 +15,7 @@ const Component = ({className, _id, title, created, price, photo}) => (
       : null
     }
     <div className={styles.info}>
-      <p>Published Date: {created}</p>
+      <p>Published: {datePrettier(created)}</p>
     </div>
   </div>
 );

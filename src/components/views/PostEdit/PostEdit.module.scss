@@ -5,12 +5,22 @@
   height: 600px;
   padding: 20px 10% 20px 10%;
 
+  textarea {
+    resize: none;
+  }
+
   .imgContainer{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
     width: 50%;
     height: 100%;
     overflow: hidden;
     border-right: 1px solid $secondary;
     border-radius: 5%;
+    color: $primary;
+    font-size: 14px;
 
     img {
       padding: 5%;
@@ -28,17 +38,47 @@
     width: 50%;
     padding: 0 5% 0 5%;
 
+    label {
+      font-size: 15px;
+      color: $primary;
+    }
 
-    .info, .author {
+
+    .info, .status {
       display: flex;
       flex-direction: column;
       border-top: 1px solid $secondary;
       margin: 5% 0 5% 0;
+
+
+
+      input {
+        width: 100%;
+        max-width: 100px;
+        margin: 1% 0 1% 0;
+      }
+    }
+
+    .status {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      justify-content: center;
+      color: $secondary;
+      text-align: center;
+
+      input {
+        margin: 1% 0 1% 0;
+      }
+    }
+
+    .dates {
+      display: flex;
+      color: $primary;
+      font-size: 12px;
+      justify-content: space-between;
     }
   }
 
-  .status {
-    color: $secondary;
-    text-align: center;
-  }
+
 }

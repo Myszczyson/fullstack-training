@@ -28,7 +28,14 @@
     }
 
     .user {
+      display: flex;
       padding-right: 2rem;
+      align-items: center;
+
+      p {
+        font-size: 15px;
+        color: $fontColorPrimary;
+      }
 
       a {
         font-size: 17px;
@@ -40,26 +47,6 @@
           transition: 1s;
         }
       }
-
-      .hidden {
-        display: none;
-      }
-
-      .visible {
-        display: initial;
-      }
-
-      // .login {
-
-      // }
-
-      // .userPosts {
-
-      // }
-
-      // .logout {
-
-      // }
     }
   }
 

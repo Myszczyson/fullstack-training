@@ -10,10 +10,12 @@ import styles from './Homepage.module.scss';
 import { SearchBar } from '../../features/SearchBar/SearchBar/SearchBar';
 import { Button } from '../../common/Button/Button/Button';
 import { PostBox } from '../../features/PostBox/PostBox';
+import { getInfo } from '../../../redux/userRedux.js';
 
 const Component = ({className}) => {
 
   const dispatch = useDispatch();
+  const user = useSelector(state => getInfo(state));
   const posts = useSelector(state => getAllPublished(state));
 
   useEffect(() =>{
@@ -26,7 +28,7 @@ const Component = ({className}) => {
     <div className={clsx(className, styles.root)}>
       <section className={styles.bar}>
         <SearchBar />
-        <Button href='/post/add' className={styles.postAdd} name={'New post'}/>
+        {user.active ? <Button href='/post/add' className={styles.postAdd} name={'New post'}/> : null}
       </section>
       <section className={styles.posts}>
         {posts.map(post => <PostBox key={post.id} {...post} />)}
