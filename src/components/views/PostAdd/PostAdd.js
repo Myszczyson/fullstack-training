@@ -37,49 +37,55 @@ const Component = ({className}) => {
     setForm({...form, [e.target.name] : e.target.value});
   };
 
-  return (
-    <form className={clsx(className, styles.root)} onSubmit={() => dispatch(create(form))}>
-      <div className={styles.imgContainer}>
-        <label>Image src=</label>
-        <input type='text' name='photo' id='photo' value={form.photo} onChange={setFormParam}/>
-      </div>
-      <div className={styles.post}>
-        <label>Title</label>
-        <input type='text' minLength='10' maxLength='50' name='title' id='title' required={true} value={form.title} onChange={setFormParam}/>
 
-        <label>Description</label>
-        <textarea type='text' minLength='20' maxLength='120' rows='4' name='text' id='text' required={true} value={form.text} onChange={setFormParam}/>
+  if(!user.mail) {
+    return <p>Sorry not permitted!</p>;
+  } else {
 
-        <div className={styles.info}>
-
-          <label>Price:
-            <input type='number' name='price' id='price' value={form.price} onChange={setFormParam}/>
-          </label>
-
-          <label>Phone:
-            <input type='tel' name='phone' id='phone' value={form.phone} onChange={setFormParam}/>
-          </label>
-
-          <label>Location:
-            <input type='text' name='location' id='location' value={form.location} onChange={setFormParam}/>
-          </label>
-
+    return (
+      <form className={clsx(className, styles.root)} onSubmit={() => dispatch(create(form))}>
+        <div className={styles.imgContainer}>
+          <label>Image src=</label>
+          <input type='text' name='photo' id='photo' value={form.photo} onChange={setFormParam}/>
         </div>
-        <div className={styles.status}>
+        <div className={styles.post}>
+          <label>Title</label>
+          <input type='text' minLength='10' maxLength='50' name='title' id='title' required={true} value={form.title} onChange={setFormParam}/>
 
-          <label>Change status</label>
-          <select name='status' id='status' value={form.status} onChange={setFormParam} required={true}>
-            <option value=''>--Please choose the status--</option>
-            <option value='published' id='status-1'>Published</option>
-            <option value='draft' id='status-2'>Draft</option>
-            <option value='closed' id='status-3'>Closed</option>
-          </select>
-          <button className={styles.submit} type='submit'>Add new post!</button>
+          <label>Description</label>
+          <textarea type='text' minLength='20' maxLength='120' rows='4' name='text' id='text' required={true} value={form.text} onChange={setFormParam}/>
 
+          <div className={styles.info}>
+
+            <label>Price:
+              <input type='number' name='price' id='price' value={form.price} onChange={setFormParam}/>
+            </label>
+
+            <label>Phone:
+              <input type='tel' name='phone' id='phone' value={form.phone} onChange={setFormParam}/>
+            </label>
+
+            <label>Location:
+              <input type='text' name='location' id='location' value={form.location} onChange={setFormParam}/>
+            </label>
+
+          </div>
+          <div className={styles.status}>
+
+            <label>Change status</label>
+            <select name='status' id='status' value={form.status} onChange={setFormParam} required={true}>
+              <option value=''>--Please choose the status--</option>
+              <option value='published' id='status-1'>Published</option>
+              <option value='draft' id='status-2'>Draft</option>
+              <option value='closed' id='status-3'>Closed</option>
+            </select>
+            <button className={styles.submit} type='submit'>Add new post!</button>
+
+          </div>
         </div>
-      </div>
-    </form>
-  );
+      </form>
+    );
+  }
 };
 
 Component.propTypes = {
